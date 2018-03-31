@@ -16,7 +16,6 @@ var userPassword = "myPasswordAsInKyc";
 
 /**
  * callerId  is a preshared key that identifies the API consumer as a valid and known entity
- * in the demno platform that is now not really checked, yet it has to exist
  * @type {String}
  */
 var callerId = "00000000-0000-0000-0000-000000000000";
@@ -51,7 +50,7 @@ var errHandler = function(err) {
 }
 
 /**
- * [wpyInitialize - the functions calls the UserSettingsGetSingle endPoint of the GPWeb Webservice API]
+ * wpyInitialize - the functions calls the UserSettingsGetSingle endPoint of the GPWeb Webservice API
  *      
  * @param  {soapClient} client - The soapClient 
  * @return {String} userId - Since this functionm returns really a promise - userId is resolved if success else an error message is returned

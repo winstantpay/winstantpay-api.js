@@ -22,7 +22,6 @@ var userPassword = "myPasswordAsInKyc";
 
 /**
  * callerId  is a preshared key that identifies the API consumer as a valid and known entity
- * in the demno platform that is now not really checked, yet it has to exist
  * @type {String}
  */
 var callerId = "00000000-0000-0000-0000-000000000000";

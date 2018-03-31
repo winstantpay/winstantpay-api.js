@@ -1,4 +1,5 @@
-# winstantpay-api.js [![npm](https://img.shields.io/npm/v/llnode.svg?style=flat-square)](https://npmjs.org/package/llnode)
+# winstantpay-api.js ![npm](https://img.shields.io/npm/v/npm.svg) ![node](https://img.shields.io/node/v/@stdlib/stdlib/latest.svg)
+
 
 ![The WinstantPay Logo](http://www.winstantpay.com/assets/img/logo-winstantpay-L-notag-trans.png "The WinstantPay Logo")
 
