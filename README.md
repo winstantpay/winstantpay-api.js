@@ -1,8 +1,12 @@
 # winstantpay-api.js [![npm](https://img.shields.io/npm/v/llnode.svg?style=flat-square)](https://npmjs.org/package/llnode)
+
+![The WinstantPay Logo](http://www.winstantpay.com/assets/img/logo-winstantpay-L-notag-trans.png "The WinstantPay Logo")
+
 These are the JavaScript examples for using the WinstantPay webservice API
 
 
 ## Introduction
+
 WinstantPay allows anyone to trade or pay globally with any currency, including cryptos and other tokens anytime and from anywhere. Originating from a foreign currency exchange and trade finance background the WinstantPay core is utilized by WinstantPay to provide a solid means for ecosystem partners to develop mobile and electronic wallets on this platform. 
 
 ### Install: ###
@@ -42,6 +46,61 @@ After you have all you credentials please follow the following steps (explained 
 ## Examples
 
 ### Getting your UserId
+
+We are sure you'll find your way around the source and keep the explanations here to the basic flow.
+
+In all scripts the wpyInitialize function is called. Thsi function connects to the backend, or WinstantPay core, and retrieves your User Id, which will be used in many funcations of the webservice.
+
+```javascript
+
+/**
+ * wpyInitialize - the functions calls the UserSettingsGetSingle endPoint of the GPWeb Webservice API
+ *      
+ * @param  {soapClient} client - The soapClient 
+ * @return {String} userId - Since this functionm returns really a promise - userId is resolved if success else an error message is returned
+ */
+function wpyInitialize(client) {```
+```
+
+to call the soap webservice we are using the [strong-soap](https://github.com/strongloop/strong-soap) module, which provides a Node.js SOAP client for invoking web services.
+
+To call the webservice a client needs to be created and a the proper SOAP paramters need to be configures, like so:
+
+```javascript
+var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['UserSettingsGetSingle']; 
+```
+The first two parameters, GPWebService and BasicHttpsBinding_IGPWebService1 stay afix. The last parameter, in this case UserSettingsGetSingle defines the endpoint of the webservice API.
+
+this method is then called with parameters to consume the endpoint. 
+
+```javascript
+ method(args, function(err, result, envelope, soapHeader) {
+```
+The args JSON object define the input paramters of the webservice. 
+
+```javascript
+    let args = {
+        request: {
+            ServiceCallerIdentity: {
+                LoginId: userLogin,
+                Password: userPassword,
+                ServiceCallerId: callerId 
+            },
+        }
+    };
+```
+upon return the result variable is set and can be accessed in the closure, like so:
+```javascript
+var gpWebResult = result;
+var userId = gpWebResult.UserSettingsGetSingleResult.UserSettings.UserId;
+console.log("User Id is ", userId);
+resolve(userId);
+```
+the section **Endpoints** provide an overview over the input and response fields.
+
+>We use [SoapUi](https://www.soapui.org/)  to browse and test our soap API's
+
+
 ### Check Balances
 ### Check Balances
 ### Get a Foreign Echange(FX) Quote
@@ -134,7 +193,7 @@ https://demoewallet.winstantpay.com/
 
 ## Support
 
-Support for the WinstantPay API is available through the WinstantPay API team. We will share the details about how to interact with our teams at the end of the KYC process.  Should you have any issues before that you can send a twitter message to us to <api@winstantpay.com>
+Support for the WinstantPay API is available through the WinstantPay API team. We will share the details about how to interact with our teams at the end of the KYC process.  Should you have pUiany issues before that you can send a twitter message to us to <api@winstantpay.com>
 
 ## License
 
