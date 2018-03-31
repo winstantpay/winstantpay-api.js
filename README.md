@@ -1,4 +1,4 @@
-# instantpay-api.js [![npm](https://img.shields.io/npm/v/llnode.svg?style=flat-square)](https://npmjs.org/package/llnode)
+# winstantpay-api.js [![npm](https://img.shields.io/npm/v/llnode.svg?style=flat-square)](https://npmjs.org/package/llnode)
 These are the JavaScript examples for using the WinstantPay webservice API
 
 
@@ -52,7 +52,6 @@ After you have all you credentials please follow the following steps (explained 
 
 ### CurrencyListGetPaymentCurrencies
 
-    
 
 ### CustomerAccountBalancesGet
 ### CustomerAccountBalancesGet
@@ -72,6 +71,8 @@ After you have all you credentials please follow the following steps (explained 
 ### UserPasswordReset
 ### UserSettingsGetSingle
 
+This service returns all the settings, The user id will be required in other services.
+
 ####Call
 
 | Parameter       | Type   | Description    |
@@ -84,7 +85,7 @@ After you have all you credentials please follow the following steps (explained 
 
 | Parameter                               | Type     | Description            |
 | ---------                               | ----     | ---------------------- |
-|AccessRights                             | String   |                        |
+|AccessRights                             | Array    |                        |
 |BankID                                   | String   |                        |
 |BaseCountryCode                          | String   |                        |
 |BaseCurrencyCode                         | String   |                        |
