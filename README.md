@@ -1,0 +1,1 @@
+# winstantpay-api.js
