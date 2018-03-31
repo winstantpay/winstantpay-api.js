@@ -7,19 +7,19 @@ const util = require('util');
  * [userLogin your wallet login]
  * @type {String}
  */
-var userLogin = "Ralf4IOU";
+var userLogin = "myUserAsInKyc";
 /**
  * [userPassword 
  * @type {String}
  */
-var userPassword = "Letmein123";
+var userPassword = "myPasswordAsInKyc";
 
 /**
  * callerId  is a preshared key that identifies the API consumer as a valid and known entity
  * in the demno platform that is now not really checked, yet it has to exist
  * @type {String}
  */
-var callerId = "773B3EBA-D4FC-4853-A32F-06FD23A5C902";
+var callerId = "00000000-0000-0000-0000-000000000000";
 
 
 /**
@@ -27,8 +27,7 @@ var callerId = "773B3EBA-D4FC-4853-A32F-06FD23A5C902";
  * @type {String}
  * @Remark  For local wsdl you can use, url = './wsdls/wpyWDSL.xml' - or any other filesystem location
  */
-var url = 'https://www.bizcurrency1.com/GPWebServiceBeta/IGPWebService1.svc?singleWsdl';
-
+var url = './WDSL/WinstantPayWebService.xml';
 /**
  * [options this object can be used to further configure the soap client]
  *          see https://github.com/strongloop/strong-soap for details on the options
@@ -40,7 +39,7 @@ var options = {};
  * [wsSecurity Implements WS-Security. UsernameToken and PasswordText/PasswordDigest is supported.]
  * @type {soap}
  */
-var wsSecurity = new soap.WSSecurity("Ralf4IOU", "Letmein123", options);
+var wsSecurity = new soap.WSSecurity(userLogin, userPassword, options);
 
 /**
  * errHandlke - Simply prints the error message to the console
