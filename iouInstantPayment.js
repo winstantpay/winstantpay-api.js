@@ -1,0 +1,248 @@
+"use strict";
+/**
+ * iouInstantPayment 
+ * API sequence
+ *      1 - Initial;ize - to get the userID 
+ *      2 - CreatePayment - to get the paymentId
+ *      3 - PostPayment - to complete the instabnt payment
+ */
+var soap = require('strong-soap').soap;
+const util = require('util');
+
+/**
+ * [userLogin your wallet login]
+ * @type {String}
+ */
+var userLogin = "Ralf4IOU";
+/**
+ * [userPassword 
+ * @type {String}
+ */
+var userPassword = "Letmein123";
+
+/**
+ * callerId  is a preshared key that identifies the API consumer as a valid and known entity
+ * in the demno platform that is now not really checked, yet it has to exist
+ * @type {String}
+ */
+var callerId = "773B3EBA-D4FC-4853-A32F-06FD23A5C902"
+
+/**
+ * [url the path tothe WSDL file of the API]
+ * @type {String}
+ * @Remark  For local wsdl you can use, url = './wsdls/wpyWDSL.xml' - or any other filesystem location
+ */
+var url = 'https://www.bizcurrency1.com/GPWebServiceBeta/IGPWebService1.svc?singleWsdl';
+
+/**
+ * [options this object can be used to further configure the soap client]
+ *          see https://github.com/strongloop/strong-soap for details on the options
+ * @type {Object}
+ */
+var options = {};
+
+/**
+ * [wsSecurity Implements WS-Security. UsernameToken and PasswordText/PasswordDigest is supported.]
+ * @type {soap}
+ */
+var wsSecurity = new soap.WSSecurity("Ralf4IOU", "Letmein123", options);
+
+/**
+ * errHandlke - Simply prints the error message to the console
+ * @param  {String} 
+ * @return {void}
+ */
+var errHandler = function(err) {
+    console.log(err);
+}
+
+/**
+ * [wpyInitialize - the functions calls the UserSettingsGetSingle endPoint of the GPWeb Webservice API]
+ *      
+ * @param  {soapClient} client - The soapClient 
+ * @return {String} userId - Since this functionm returns really a promise - userId is resolved if success else an error message is returned
+ */
+function wpyInitialize(client) {
+    /**
+     * [args Contain the arguments for the soap module call]
+     * @type {Object}
+     */
+    let args = {
+        request: {
+            ServiceCallerIdentity: {
+                LoginId: userLogin,
+                Password: userPassword,
+                ServiceCallerId: callerId // iou_caller_id / bank id
+            },
+        }
+    };
+    /**
+     * @param  {Function} - resolve is call when the function succeeds 
+     * @param  {Function} - reject is called when the method called technically fails - 
+     *                      sementical errors will be returned on the result buffer, which is a parsd JSON object,
+     *                      and are not handled here
+     * @return {void}
+     */
+    return new Promise(function(resolve, reject) {
+        
+        var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['UserSettingsGetSingle'];
+
+        method(args, function(err, result, envelope, soapHeader) {
+            if (err) {
+                reject(err);
+            } else {
+                // console.log('\nResult: \n');
+                // console.log(util.inspect(result, {
+                //     showHidden: false,
+                //     depth: null
+                // }))
+
+                // var gpWebResult = JSON.parse(result);
+                var gpWebResult = result;
+                var userId = gpWebResult.UserSettingsGetSingleResult.UserSettings.UserId;
+                console.log("User Id is ", userId);
+                resolve(userId);
+            }
+        });
+
+    })
+
+} // end of initialize
+
+/**
+ * wpyPaymentCreate - creates a Payment in the bnackend and resolves the paymenmtId
+ * @param  {soapClient}
+ * @param  {String} fromWallet - any of your aliases has to match the Wallets belonging to the LoginId
+ * @param  {String} toWallet - a valid alias - Note that this is not a UID string, but a alias used 
+ * @param  {String} currecy - any of the valid currency codes for the wallet e.g. THB, LAK, eytc.
+ * @param  {String} amound - a float value e.g. 1230.00
+ * @return {Promise} - on success a paymentID is resolved - onError the  promise is rejected with the error set in the String 
+ */
+function wpyPaymentCreate(client, fromWallet, toWallet, currency, amount) {
+    let args = {
+        request: {
+            ServiceCallerIdentity: {
+                LoginId: userLogin,
+                Password: userPassword,
+                ServiceCallerId: callerId // iou_caller_id / bank id
+            },
+            FromCustomer: fromWallet,
+            ToCustomer: toWallet,
+            Amount: amount,
+            CurrencyCode: currency,
+            ValueDate: "",
+            ReasonForPayment:"",
+            ExternalReference: "",
+            Memo:""
+
+        }
+    };
+
+    return new Promise(function(resolve, reject) {
+        // Do async job
+        var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['InstantPaymentCreate'];
+
+        method(args, function(err, result, envelope, soapHeader) {
+            if (err) {
+                reject(err);
+            } else {
+                // console.log('\nResult: \n');
+                // console.log(util.inspect(result, {
+                //     showHidden: false,
+                //     depth: null
+                // }))
+
+                // var gpWebResult = JSON.parse(result);
+                var gpWebResult = result.InstantPaymentCreateResult.PaymentInformation;
+
+                console.log("----------------------------------------------------")
+                console.log("Your payment Id is: ", gpWebResult.PaymentId);
+                console.log("Your reference is : ", gpWebResult.PaymentReference);
+                console.log("----------------------------------------------------")
+
+                resolve(gpWebResult);
+            }
+        });
+
+    })
+
+} // end of wpyGetFxQuote
+
+/**
+ * wpyPaymentPost - This completes the instant payment
+ * @param  {soapClient}
+ * @param  {String} paymentId 
+ * @return {Promise}
+ */
+function wpyPaymentPost(client, paymentId) {
+    let args = {
+        request: {
+            ServiceCallerIdentity: {
+                LoginId: userLogin,
+                Password: userPassword,
+                ServiceCallerId: callerId // iou_caller_id / bank id
+            },
+            InstantPaymentId: paymentId
+        }
+    };
+
+    return new Promise(function(resolve, reject) {
+        // Do async job
+        var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['InstantPaymentPost'];
+
+        method(args, function(err, result, envelope, soapHeader) {
+            if (err) {
+                reject(err);
+            } else {
+                // console.log('\nResult: \n');
+                // console.log(util.inspect(result, {
+                //     showHidden: false,
+                //     depth: null
+                // }))
+                var gpWebResult = result.InstantPaymentPostResult.ServiceResponse;
+                resolve(gpWebResult);
+            }
+        });
+
+    })
+
+} // end of wpyGetFxQuote
+
+/**
+ * @param  {String}
+ * @param  {Object}
+ * @param  {Functiom} - a closure to handle the client stuff
+ * @param  {String} - The error String filled if the client creation fails
+ * @return {soapClient} - The soap client which will be an object if the creatClient call succeeds 
+ */
+soap.createClient(url, options, function(err, client) {
+    var userId = null;
+    var paymentId = null;
+
+    if (err) {
+        console.log(err);
+        process.exit(-1);
+    }
+
+    client.setSecurity(wsSecurity);
+
+    var initializePromise = wpyInitialize(client);
+    initializePromise.then(function(gpWebResult) {
+            userId = gpWebResult;
+            console.log("Initialized user Id");
+            // Use user details from here
+            console.log(userId)
+            return wpyPaymentCreate(client,"RALF","HUGO","THB","100.00");
+        }, errHandler)
+        .then(function(gpWebResult) {
+            console.log("We got a paymentId..Let's complete the payment...");
+            console.log(gpWebResult)
+            paymentId = gpWebResult.PaymentId;
+            return wpyPaymentPost(client, paymentId);
+        }, errHandler)
+        .then(function(result) {
+            console.log(result);
+            console.log('Done');
+        }, errHandler)
+
+});

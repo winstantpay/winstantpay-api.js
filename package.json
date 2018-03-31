@@ -1,0 +1,24 @@
+{
+  "name": "api.js",
+  "version": "1.0.0",
+  "description": "These are the Javascript examples for using the WinstantPay webservice API",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodejs index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "winstantpay-api.js"
+  },
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "winstantpay",
+    "api"
+  ],
+  "author": "WinstantPay",
+  "license": "MIT",
+  "dependencies": {
+    "strong-soap": "^1.6.2"
+  }
+}
