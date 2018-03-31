@@ -1,4 +1,4 @@
-# winstantpay-api.js [![npm](https://img.shields.io/npm/v/llnode.svg?style=flat-square)](https://npmjs.org/package/llnode)
+# instantpay-api.js [![npm](https://img.shields.io/npm/v/llnode.svg?style=flat-square)](https://npmjs.org/package/llnode)
 These are the JavaScript examples for using the WinstantPay webservice API
 
 
@@ -17,11 +17,6 @@ npm install
 
 node version >=6
 
-## Wallet Demo
-
-https://demoewallet.winstantpay.com/
-
-
 ### Quick start
 
 
@@ -29,15 +24,112 @@ https://demoewallet.winstantpay.com/
 npm install
 npm start
 ```
-Please note that you need a pre-shared key to use the API. 
-We call this key a caller-id.
+>Please note that you need a pre-shared key to use the API. 
+>We call this key a caller-id.
+>
+>To get the caller id, you need to complete your KYC (Know Your Client), which will result in >you have a user ID and password with WinstantPay. 
+>To complete the basic KYC, you need a working email and telephone number.
 
-To get the caller id, you need to complete your KYC (Know Your Client), which will result in you have a user ID and password with WinstantPay. 
-To complete the basic KYC, you need a working email and telephone number.
+>Once done, send us an email to <api@winstantpay.com> from the registered email and we ?will get in touch prompty (usually via SMS to your phone 24hours).
+>
+>Upon verification of that number we will provide your with the caller ID
 
-Once done, send us an email to <api@winstantpay.com> from the registered email and we will get in touch prompty (usually via SMS to your phone 24hours).
+After you have all you credentials please follow the following steps (explained in section **Examples"" below
 
-Upon verification of that number we will provide your with the caller ID
+1. Get your user-id from the server by calling the UserSettingsGetSingle endpoint of the webservice. 
+2. Call the endpoints as shown in the section **Endpoints**
+
+## Examples
+
+### Getting your UserId
+### Check Balances
+### Check Balances
+### Get a Foreign Echange(FX) Quote
+### Make am Instant Payment
+
+
+## Endpoints
+
+### CurrencyListGetPaymentCurrencies
+
+    
+
+### CustomerAccountBalancesGet
+### CustomerAccountBalancesGet
+### CustomerAccountStatementGetSingle
+### CustomerUserSearch
+### FXDealQuoteBook
+### FXDealQuoteBookAndInstantDeposit
+### FXDealQuoteCreate
+### GetCustomerAccountAliasList
+### GetCustomerAccountBalances
+### GetLibraryVersion
+### InstantPaymentCreate
+### InstantPaymentGetSingle
+### InstantPaymentPost
+### InstantPaymentSearch
+### UserPasswordChange
+### UserPasswordReset
+### UserSettingsGetSingle
+
+####Call
+
+| Parameter       | Type   | Description    |
+| --------------- | ------ | -------------- |
+| LoginId         | String | Your User ID   |
+| Password        | String | Your Password  |
+| ServiceCallerId | String | Your callerI d |
+
+#### Response Object
+
+| Parameter                               | Type     | Description            |
+| ---------                               | ----     | ---------------------- |
+|AccessRights                             | String   |                        |
+|BankID                                   | String   |                        |
+|BaseCountryCode                          | String   |                        |
+|BaseCurrencyCode                         | String   |                        |
+|BaseCurrencyID                           | String   |                        |
+|BelongsToWhiteLabelBranch                | String   |                        |
+|BranchID                                 | String   |                        |
+|CultureCode                              | String   |                        |
+|CultureID                                | String   |                        |
+|EmailAddress                             | String   |                        |
+|Fax/                                     | String   |                        |
+|FirstName                                | String   |                        |
+|IsACHBatchFeatureEnabled                 | String   |                        |
+|IsBankAutoCoverFeatureEnabled            | String   |                        |
+|IsBankIncomingPaymentEnabled             | String   |                        |
+|IsBankInstantPaymentFeatureEnabled       | String   |                        |
+|IsCurrencyCalculatorEnabled              | String   |                        |
+|IsEnabled                                | String   |                        |
+|IsFileAttachmentFeatureEnabled           | String   |                        |
+|IsLockedOut                              | String   |                        |
+|IsManageCustomOFACListsFeatureEnabled    | String   |                        |
+|IsPaymentValueTypeEnabled                | String   |                        |
+|IsSWIFTMessageFeatureEnabled             | String   |                        |
+|IsTradeFinanceFeatureEnabled             | String   |                        |
+|IsTwoFactorAuthenticationFeatureEnabled  | String   |                        |
+|IsTwoFactorAuthenticationRequired        | String   |                        |
+|LastName                                 | String   |                        |
+|LinkedAccessRightTemplateID              | String   |                        |
+|LinkedAccessRightTemplateName            | String   |                        |
+|OrganizationID                           | String   |                        |
+|OrganizationName                         | String   |                        |
+|OrganizationTypeID                       | String   |                        |
+|PageTitle/                               | String   |                        |
+|Phone/                                   | String   |                        |
+|Theme                                    | String   |                        |
+|UserId                                   | String   |                        |
+|UserName                                 | String   |                        |
+|WhiteLabelProfileID                      | String   |                        |
+
+>Note:
+> The import field to use from the response is the UserId field has this is used in suquent calls of the webservice
+
+
+## Wallet Demo
+
+https://demoewallet.winstantpay.com/
 
 ## Support
 
