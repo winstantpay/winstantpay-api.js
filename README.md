@@ -687,7 +687,7 @@ let args = {
         ServiceCallerIdentity: {
             LoginId: userLogin,
             Password: userPassword,
-            ServiceCallerId: callerId // iou_caller_id / bank id
+            ServiceCallerId: callerId
         },
         InstantPaymentId: paymentId
     }
@@ -729,7 +729,43 @@ The Object:
   BankMemo: undefined }
 ```
 ### InstantPaymentPost
-
+#### Call
+```javascript
+let args = {
+    request: {
+        ServiceCallerIdentity: {
+            LoginId: userLogin,
+            Password: userPassword,
+            ServiceCallerId: callerId
+        },
+        InstantPaymentId: paymentId
+    }
+};
+```
+Method: 
+```javascript
+var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['InstantPaymentPost'];
+```
+#### Response
+The Path:
+```javascript
+var gpWebResult = result.InstantPaymentPostResult;
+```
+The Object:
+```javascript
+{ ServiceResponse: 
+   { HasErrors: false,
+     HasWarnings: false,
+     Responses: 
+      { ServiceResponseData: 
+         { ResponseCode: 0,
+           ResponseType: 'Information',
+           Message: 'Success',
+           MessageDetails: 'Command completed successfully',
+           FieldName: undefined,
+           FieldValue: undefined } } } }
+```
+>Call the InstantPaymentGetSingle servcie to get all the details of  the successful payment
 
 ### UserSettingsGetSingle
 
