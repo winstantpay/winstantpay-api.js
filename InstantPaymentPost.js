@@ -40,12 +40,6 @@ var gFromWallet = "ALIAS";
 var gToWallet = "ALIAS";
 
 
-userLogin = "Ralf4IOU";
-userPassword = "Letmein123"
-callerId = "773B3EBA-D4FC-4853-A32F-06FD23A5C902";
-gFromWallet = "RALF";
-gToWallet = "HERVE";
-
 /**
  * [url the path tothe WSDL file of the API]
  * @type {String}
