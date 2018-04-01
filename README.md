@@ -768,10 +768,10 @@ The Object:
 >Call the InstantPaymentGetSingle servcie to get all the details of  the successful payment
 
 ### UserSettingsGetSingle
-
-This service returns all the settings, The user id will be required in other services.
+>his service returns all the settings, The user id will be required in other services.
 
 #### Call
+```javascript
 let args = {
     request: {
         ServiceCallerIdentity: {
@@ -781,7 +781,17 @@ let args = {
         }
     }
 };
-#### Response Object
+```
+Method: 
+```javascript
+var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['UserSettingsGetSingle'];
+```
+#### Response
+The Path:
+```javascript
+var userId = gpWebResult.UserSettingsGetSingleResult.UserSettings;
+```
+The Object:
 ```javascript
 { UserSettingsGetSingleResult: 
    { ServiceResponse: 
@@ -853,29 +863,6 @@ let args = {
 ```
 >Note:
 > The import field to use from the response is the UserId field has this is used in suquent calls of the webservice
-{ PaymentId: '36e37959-9135-e811-b9ba-002590067f61',
-  PaymentReference: 'INST1000864',
-  FromCustomerAlias: 'RALF',
-  ToCustomerAlias: 'HERVE',
-  FromCustomerName: 'Ralf IOU Hundertmark',
-  FromCustomerId: 'ec823d16-2f27-e811-b9ba-002590067f61',
-  ToCustomerName: 'Leap Frog',
-  ToCustomerId: '87f820a2-b676-dc11-94ac-00123f72c3fc',
-  PaymentStatus: 'Posted',
-  Amount: 20,
-  AmountCurrencyScale: 2,
-  CCY: 'THB',
-  ValueDate: 2018-04-01T00:00:00.000Z,
-  ProcessingBranchName: undefined,
-  ProcessingBranchCode: undefined,
-  CreatedTime: 2018-04-01T09:45:06.160Z,
-  CreatedByName: 'Ralf Hundertmark',
-  PostedTime: 2018-04-01T09:45:07.440Z,
-  PostedByName: 'Ralf Hundertmark',
-  IsDeleted: false,
-  ReasonForPayment: undefined,
-  ExternalReference: undefined,
-  BankMemo: undefined }
 
 
 ## Wallet Demo
