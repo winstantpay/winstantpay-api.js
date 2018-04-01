@@ -516,7 +516,7 @@ The Object:
        ItemReference: 'DEPO1001055',
        AmountCredit: 500000,
        AmountDebit: 0,
-       ValueDate: 2018-03-15T00:00:00.000Z,
+       ValueDate: '2018-03-15T00:00:00.000Z',
        BankMemo: 'TEST Examples' },
      { EntryTypeName: 'Settlement',
        ItemTypeId: 10,
@@ -525,7 +525,7 @@ The Object:
        ItemReference: 'DEPO1001084 / SPOT1009654',
        AmountCredit: 0,
        AmountDebit: 1000,
-       ValueDate: 2018-03-26T00:00:00.000Z,
+       ValueDate: '2018-03-26T00:00:00.000Z',
        BankMemo: 'ACCOUNT INSTANT TRANSFER' } 
 ]
 ```
@@ -607,8 +607,8 @@ The Object:
   RateFormat: 'THB / MMK',
   DealDate: '4/2/2018 12:00:00 AM',
   ValueDate: '4/4/2018 12:00:00 AM',
-  QuoteTime: 2018-04-01T15:11:26.130Z,
-  ExpirationTime: 2018-04-01T15:11:56.130Z,
+  QuoteTime: '2018-04-01T15:11:26.130Z',
+  ExpirationTime: '2018-04-01T15:11:56.130Z',
   IsForCurrencyCalculator: false }
 ```
 
@@ -716,12 +716,12 @@ The Object:
   Amount: 20,
   AmountCurrencyScale: 2,
   CCY: 'THB',
-  ValueDate: 2018-04-01T00:00:00.000Z,
+  ValueDate: '2018-04-01T00:00:00.000Z',
   ProcessingBranchName: undefined,
   ProcessingBranchCode: undefined,
-  CreatedTime: 2018-04-01T09:45:06.160Z,
+  CreatedTime: '2018-04-01T09:45:06.160Z',
   CreatedByName: 'String - fullanem of the gFromWallet',
-  PostedTime: 2018-04-01T09:45:07.440Z,
+  PostedTime: '2018-04-01T09:45:07.440Z',
   PostedByName: 'String',
   IsDeleted: false,
   ReasonForPayment: undefined,
