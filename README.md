@@ -532,6 +532,37 @@ The Object:
 
 ### FXDealQuoteBookAndInstantDeposit
 >The endpoints are listed alphabetically. IRL you would create a quote from a FX deal first
+#### Call
+```javascript
+let args = {
+    request: {
+        ServiceCallerIdentity: {
+            LoginId: userLogin,
+            Password: userPassword,
+            ServiceCallerId: callerId 
+        },
+        QuoteId: quoteId // comming from FXDealQuoteCreate
+    }
+};
+```
+Method: 
+```javascript
+var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['FXDealQuoteBookAndInstantDeposit'];
+```
+#### Response
+The Path:
+```javascript
+var gpWebResult = result.FXDealQuoteBookAndInstantDepositResult.FXDepositData;
+```
+The Object:
+```javascript
+{ FXDealId: 'an ID',
+  FXDealReference: 'SPOT1009694',
+  DepositId: 'an ID',
+  DepositReference: 'DEPO1001106' }
+
+```
+>The References above will be different in your case
 
 ### FXDealQuoteCreate
 #### Call
