@@ -616,6 +616,24 @@ The Object:
 This is identical to the [CustomerAccountBalancesGet](#customeraccountbalancesget) endpoint and is listed for historical reasons only.
 
 ### GetLibraryVersion
+#### Call
+```javascript
+let args = {
+};
+```
+Method: 
+```javascript
+var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['GetLibraryVersion'];
+```
+#### Response
+The Path:
+```javascript
+var librayVersion = gpWebResult.GetLibraryVersionResult;
+```
+The Object:
+```javascript
+4.5.7.15
+```
 
 ### InstantPaymentCreate
 
