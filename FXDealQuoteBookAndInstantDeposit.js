@@ -140,16 +140,16 @@ function FXDealQuoteCreate(client, customerId) {
  * @return {Promise}
  */
 function FXDealQuoteBookAndInstantDeposit(client, quoteId) {
-    let args = {
-        request: {
-            ServiceCallerIdentity: {
-                LoginId: userLogin,
-                Password: userPassword,
-                ServiceCallerId: callerId 
-            },
-            QuoteId: quoteId
-        }
-    };
+let args = {
+    request: {
+        ServiceCallerIdentity: {
+            LoginId: userLogin,
+            Password: userPassword,
+            ServiceCallerId: callerId 
+        },
+        QuoteId: quoteId
+    }
+};
     // Return new promise 
     return new Promise(function(resolve, reject) {
         // Do async job

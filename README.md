@@ -560,9 +560,8 @@ The Object:
   FXDealReference: 'SPOT1009694',
   DepositId: 'an ID',
   DepositReference: 'DEPO1001106' }
-
 ```
->The References above will be different in your case
+>The FXDeal and Deposit references above will be different in your case
 
 ### FXDealQuoteCreate
 #### Call
