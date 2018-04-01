@@ -20,6 +20,11 @@ var userPassword = "myPasswordAsInKyc";
  */
 var callerId = "00000000-0000-0000-0000-000000000000";
 
+userLogin = "Ralf4IOU";
+userPassword = "Letmein123"
+callerId = "773B3EBA-D4FC-4853-A32F-06FD23A5C902";
+
+
 /**
  * [url the path tothe WSDL file of the API]
  * @type {String}
@@ -50,25 +55,25 @@ var errHandler = function(err) {
 }
 
 /**
- * CurrencyListGetPaymentCurrencies - the functions calls the UserSettingsGetSingle endPoint of the GPWeb Webservice API
+ * [wpyInitialize - the functions calls the UserSettingsGetSingle endPoint of the GPWeb Webservice API]
  *      
  * @param  {soapClient} client - The soapClient 
- * @return {JSON} CurrencyListGetPaymentCurrenciesResponse
+ * @return {String} userId - Since this functionm returns really a promise - userId is resolved if success else an error message is returned
  */
-function CurrencyListGetPaymentCurrencies(client) {
+function wpyInitialize(client) {
     /**
      * [args Contain the arguments for the soap module call]
      * @type {Object}
      */
-let args = {
-    request: {
-        ServiceCallerIdentity: {
-            LoginId: userLogin,
-            Password: userPassword,
-            ServiceCallerId: callerId 
-        },
-    }
-};
+    let args = {
+        request: {
+            ServiceCallerIdentity: {
+                LoginId: userLogin,
+                Password: userPassword,
+                ServiceCallerId: callerId 
+            },
+        }
+    };
     /**
      * @param  {Function} - resolve is call when the function succeeds 
      * @param  {Function} - reject is called when the method called technically fails - 
@@ -78,22 +83,65 @@ let args = {
      */
     return new Promise(function(resolve, reject) {
         
-        var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['CurrencyListGetPaymentCurrencies'];
+        var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['UserSettingsGetSingle'];
+
+        method(args, function(err, result, envelope, soapHeader) {
+            if (err) {
+                reject(err);
+            } else {
+                console.log('\nResult: \n');
+                // console.log(util.inspect(result, {
+                //     showHidden: false,
+                //     depth: null
+                // }))
+
+                // var gpWebResult = JSON.parse(result);
+                var gpWebResult = result;
+                var userId = gpWebResult.UserSettingsGetSingleResult.UserSettings.UserId;
+                console.log("User Id is ", userId);
+                resolve(userId);
+            }
+        });
+
+    })
+
+} // end of initialize
+
+/**
+ * CustomerAccountBalancesGet - get the current standings...
+ * @param  {soapClient}
+ * @param  {String}
+ * @return {Promise}
+ */
+function CustomerAccountBalancesGet(client,customerId) {
+    let args = {
+        request: {
+            ServiceCallerIdentity: {
+                LoginId: userLogin,
+                Password: userPassword,
+                ServiceCallerId: callerId 
+            },
+            CustomerId: customerId // this is from the priory called UserSettingsGetSingle
+        }
+    };
+    // Return new promise 
+    return new Promise(function(resolve, reject) {
+        // Do async job
+        var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['CustomerAccountBalancesGet'];
 
         method(args, function(err, result, envelope, soapHeader) {
             if (err) {
                 reject(err);
             } else {
                 var gpWebResult = result;
-                var currencies = gpWebResult.CurrencyListGetPaymentCurrenciesResult.Currencies;
-                resolve(currencies);
+                var balances = gpWebResult.CustomerAccountBalancesGetResult.Balances;
+                resolve(balances);
             }
         });
 
     })
 
-} // end of CurrencyListGetPaymentCurrencies
-
+} // end of CustomerAccountBalancesGet
 
 /**
  * @param  {String}
@@ -112,8 +160,13 @@ soap.createClient(url, options, function(err, client) {
 
     client.setSecurity(wsSecurity);
 
-    var initializePromise = CurrencyListGetPaymentCurrencies(client);
+    var initializePromise = wpyInitialize(client);
     initializePromise.then(function(result) {
+        userId = result;
+        console.log("Initialized user. Id is: " + userId);
+        return CustomerAccountBalancesGet(client,userId);
+    }, errHandler)
+    .then(function(result) {
         console.log(util.inspect(result, {
             showHidden: false,
             depth: null

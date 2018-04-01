@@ -326,8 +326,8 @@ the section **Endpoints** provide an overview over the  inputs (the args JSON ob
 
 ## Endpoints
 
-- [CurrencyListGetPaymentCurrencies](#CurrencyListGetPaymentCurrencies)
-- [CustomerAccountBalancesGet](#CustomerAccountBalancesGet)
+- [CurrencyListGetPaymentCurrencies](#currencyListgetpaymentcurrencies)
+- [CustomerAccountBalancesGet](#customerAccountbalancesget)
 - [CustomerAccountStatementGetSingle](#CustomerAccountStatementGetSingle)
 - [CustomerUserSearch](#CustomerUserSearch)
 - [FXDealQuoteBook](#FXDealQuoteBook)
@@ -343,7 +343,6 @@ the section **Endpoints** provide an overview over the  inputs (the args JSON ob
 - [UserPasswordChange](#UserPasswordChange)
 - [UserPasswordReset](#UserPasswordReset)
 - [UserSettingsGetSingle](#UserSettingsGetSingle)
-
 
 ### CurrencyListGetPaymentCurrencies
 #### Call
@@ -413,7 +412,81 @@ The Object:
 
 ```
 ### CustomerAccountBalancesGet
+#### Call
+```javascript
+let args = {
+    request: {
+        ServiceCallerIdentity: {
+            LoginId: userLogin,
+            Password: userPassword,
+            ServiceCallerId: callerId 
+        },
+        CustomerId: customerId // this is the userId from the priory called UserSettingsGetSingle
+    }
+};
+```
+Method: 
+```javascript
+var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['CustomerAccountBalancesGet'];
+```
+#### Response
+The Path:
+```javascript
+var balances = gpWebResult.CustomerAccountBalancesGetResult.Balances;
 
+```
+The Object:
+```javascript
+{ CustomerBalanceData: 
+   [ { AccountId: 'the ID of the account ',
+       AccountNumber: '1022369',
+       CCY: 'KHR',
+       Balance: 0,
+       ActiveHoldsTotal: 0,
+       BalanceAvailable: 0,
+       BaseCCY: 'THB',
+       BalanceAvailableBase: 0 },
+     { AccountId: 'the ID of the account ',
+       AccountNumber: '1022372',
+       CCY: 'LAK',
+       Balance: 260646,
+       ActiveHoldsTotal: 0,
+       BalanceAvailable: 260646,
+       BaseCCY: 'THB',
+       BalanceAvailableBase: 979.19 },
+     { AccountId: 'the ID of the account ',
+       AccountNumber: '1022376',
+       CCY: 'MMK',
+       Balance: 42059,
+       ActiveHoldsTotal: 0,
+       BalanceAvailable: 42059,
+       BaseCCY: 'THB',
+       BalanceAvailableBase: 979.07 },
+     { AccountId: 'the ID of the account ',
+       AccountNumber: '1022381',
+       CCY: 'THB',
+       Balance: 495700,
+       ActiveHoldsTotal: 0,
+       BalanceAvailable: 495700,
+       BaseCCY: 'THB',
+       BalanceAvailableBase: 495700 },
+     { AccountId: 'the ID of the account ',
+       AccountNumber: '1022991',
+       CCY: 'TND',
+       Balance: 0,
+       ActiveHoldsTotal: 0,
+       BalanceAvailable: 0,
+       BaseCCY: 'THB',
+       BalanceAvailableBase: 0 },
+     { AccountId: 'the ID of the account ',
+       AccountNumber: '1022385',
+       CCY: 'USD',
+       Balance: 4950,
+       ActiveHoldsTotal: 0,
+       BalanceAvailable: 4950,
+       BaseCCY: 'THB',
+       BalanceAvailableBase: 154291.5 } ] }
+```
 ### CustomerAccountStatementGetSingle
 ### CustomerUserSearch
 ### FXDealQuoteBook
