@@ -326,6 +326,25 @@ the section **Endpoints** provide an overview over the  inputs (the args JSON ob
 
 ## Endpoints
 
+- [CurrencyListGetPaymentCurrencies](#CurrencyListGetPaymentCurrencies)
+- [CustomerAccountBalancesGet](#CustomerAccountBalancesGet)
+- [CustomerAccountStatementGetSingle](#CustomerAccountStatementGetSingle)
+- [CustomerUserSearch](#CustomerUserSearch)
+- [FXDealQuoteBook](#FXDealQuoteBook)
+- [FXDealQuoteBookAndInstantDeposit](#FXDealQuoteBookAndInstantDeposit)
+- [FXDealQuoteCreate](#FXDealQuoteCreate)
+- [GetCustomerAccountAliasList](#GetCustomerAccountAliasList)
+- [GetCustomerAccountBalances](#GetCustomerAccountBalances)
+- [GetLibraryVersion](#GetLibraryVersion)
+- [InstantPaymentCreate](#InstantPaymentCreate)
+- [InstantPaymentGetSingle](#InstantPaymentGetSingle)
+- [InstantPaymentPost](#InstantPaymentPost)
+- [InstantPaymentSearch](#InstantPaymentSearch)
+- [UserPasswordChange](#UserPasswordChange)
+- [UserPasswordReset](#UserPasswordReset)
+- [UserSettingsGetSingle](#UserSettingsGetSingle)
+
+
 ### CurrencyListGetPaymentCurrencies
 #### Call
 ```javascript
@@ -396,11 +415,8 @@ The Object:
 ### CustomerAccountBalancesGet
 
 ### CustomerAccountStatementGetSingle
-
 ### CustomerUserSearch
-
 ### FXDealQuoteBook
-
 ### FXDealQuoteBookAndInstantDeposit
 ### FXDealQuoteCreate
 ### GetCustomerAccountAliasList
