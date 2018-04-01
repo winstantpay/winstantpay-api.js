@@ -73,7 +73,7 @@ function wpyInitialize(client) {
                 LoginId: userLogin,
                 Password: userPassword,
                 ServiceCallerId: callerId // iou_caller_id / bank id
-            },
+            }
         }
     };
     /**

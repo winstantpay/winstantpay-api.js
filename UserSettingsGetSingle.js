@@ -20,13 +20,17 @@ var userPassword = "myPasswordAsInKyc";
  */
 var callerId = "00000000-0000-0000-0000-000000000000";
 
+userLogin = "Ralf4IOU";
+userPassword = "Letmein123"
+callerId = "773B3EBA-D4FC-4853-A32F-06FD23A5C902";
+
 
 /**
  * [url the path tothe WSDL file of the API]
  * @type {String}
  * @Remark  For local wsdl you can use, url = './wsdls/wpyWDSL.xml' - or any other filesystem location
  */
-var url = './WDSL/WinstantPayWebService.xml';
+var url = './WSDL/WinstantPayWebService.xml';
 
 /**
  * [options this object can be used to further configure the soap client]
@@ -51,12 +55,12 @@ var errHandler = function(err) {
 }
 
 /**
- * [wpyInitialize - the functions calls the UserSettingsGetSingle endPoint of the GPWeb Webservice API]
+ * userSettingsGetSingle - the functions calls the UserSettingsGetSingle endPoint of the GPWeb Webservice API
  *      
  * @param  {soapClient} client - The soapClient 
  * @return {String} userId - Since this functionm returns really a promise - userId is resolved if success else an error message is returned
  */
-function wpyInitialize(client) {
+function userSettingsGetSingle(client) {
     /**
      * [args Contain the arguments for the soap module call]
      * @type {Object}
@@ -86,10 +90,10 @@ function wpyInitialize(client) {
                 reject(err);
             } else {
                 console.log('\nResult: \n');
-                // console.log(util.inspect(result, {
-                //     showHidden: false,
-                //     depth: null
-                // }))
+                console.log(util.inspect(result, {
+                    showHidden: false,
+                    depth: null
+                }))
 
                 // var gpWebResult = JSON.parse(result);
                 var gpWebResult = result;
@@ -101,50 +105,8 @@ function wpyInitialize(client) {
 
     })
 
-} // end of initialize
+} // end of userSettingsGetSingle
 
-/**
- * wpyGetAccountBalances - get the current standings...
- * @param  {soapClient}
- * @param  {String}
- * @return {Promise}
- */
-function wpyGetAccountBalances(client,customerId) {
-    // Setting WebService Paramter attributes 
-    let args = {
-        request: {
-            ServiceCallerIdentity: {
-                LoginId: userLogin,
-                Password: userPassword,
-                ServiceCallerId: callerId 
-            },
-            CustomerId: customerId
-        }
-    };
-    // Return new promise 
-    return new Promise(function(resolve, reject) {
-        // Do async job
-        var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['CustomerAccountBalancesGet'];
-
-        method(args, function(err, result, envelope, soapHeader) {
-            if (err) {
-                reject(err);
-            } else {
-                console.log('\nResult: \n');
-                console.log(util.inspect(result, {
-                    showHidden: false,
-                    depth: null
-                }))
-
-                // var gpWebResult = JSON.parse(result);
-                var gpWebResult = result;
-                resolve(gpWebResult);
-            }
-        });
-
-    })
-
-} // end of initialize
 
 /**
  * @param  {String}
@@ -163,14 +125,10 @@ soap.createClient(url, options, function(err, client) {
 
     client.setSecurity(wsSecurity);
 
-    var initializePromise = wpyInitialize(client);
+    var initializePromise = userSettingsGetSingle(client);
     initializePromise.then(function(result) {
         userId = result;
-        console.log("Initialized user. Id is: " + userId);
-        return wpyGetAccountBalances(client,userId);
-    }, errHandler)
-    .then(function(result) {
-        console.log(result);
+        console.log("UserSettingsGetSingle user. Id is: " + userId);
     }, errHandler);
 
 });
