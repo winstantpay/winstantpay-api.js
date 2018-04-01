@@ -677,7 +677,57 @@ The Object:
 >The ID above will be used in the payment related calls following
 
 ### InstantPaymentGetSingle
+>Even though the InstantPaymentCreate returns a paymentId, this InstantPaymentGetSingle service depends on a payment that is completed already.
+> So this service is called after the InstantPaymentPost function as shown in the example.
 
+#### Call
+```javascript
+let args = {
+    request: {
+        ServiceCallerIdentity: {
+            LoginId: userLogin,
+            Password: userPassword,
+            ServiceCallerId: callerId // iou_caller_id / bank id
+        },
+        InstantPaymentId: paymentId
+    }
+};
+```
+Method: 
+```javascript
+var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['InstantPaymentGetSingle'];
+```
+#### Response
+The Path:
+```javascript
+var gpWebResult = result.InstantPaymentGetSingleResult.Payment;
+```
+The Object:
+```javascript
+{ PaymentId: 'an ID',
+  PaymentReference: 'INST1000864',
+  FromCustomerAlias: 'gFromWallet', // see axample code
+  ToCustomerAlias: 'tToWallet', // see example code
+  FromCustomerName: 'String',
+  FromCustomerId: 'an ID',
+  ToCustomerName: 'String',
+  ToCustomerId: 'an ID',
+  PaymentStatus: 'Posted',
+  Amount: 20,
+  AmountCurrencyScale: 2,
+  CCY: 'THB',
+  ValueDate: 2018-04-01T00:00:00.000Z,
+  ProcessingBranchName: undefined,
+  ProcessingBranchCode: undefined,
+  CreatedTime: 2018-04-01T09:45:06.160Z,
+  CreatedByName: 'String - fullanem of the gFromWallet',
+  PostedTime: 2018-04-01T09:45:07.440Z,
+  PostedByName: 'String',
+  IsDeleted: false,
+  ReasonForPayment: undefined,
+  ExternalReference: undefined,
+  BankMemo: undefined }
+```
 ### InstantPaymentPost
 
 
@@ -767,6 +817,29 @@ let args = {
 ```
 >Note:
 > The import field to use from the response is the UserId field has this is used in suquent calls of the webservice
+{ PaymentId: '36e37959-9135-e811-b9ba-002590067f61',
+  PaymentReference: 'INST1000864',
+  FromCustomerAlias: 'RALF',
+  ToCustomerAlias: 'HERVE',
+  FromCustomerName: 'Ralf IOU Hundertmark',
+  FromCustomerId: 'ec823d16-2f27-e811-b9ba-002590067f61',
+  ToCustomerName: 'Leap Frog',
+  ToCustomerId: '87f820a2-b676-dc11-94ac-00123f72c3fc',
+  PaymentStatus: 'Posted',
+  Amount: 20,
+  AmountCurrencyScale: 2,
+  CCY: 'THB',
+  ValueDate: 2018-04-01T00:00:00.000Z,
+  ProcessingBranchName: undefined,
+  ProcessingBranchCode: undefined,
+  CreatedTime: 2018-04-01T09:45:06.160Z,
+  CreatedByName: 'Ralf Hundertmark',
+  PostedTime: 2018-04-01T09:45:07.440Z,
+  PostedByName: 'Ralf Hundertmark',
+  IsDeleted: false,
+  ReasonForPayment: undefined,
+  ExternalReference: undefined,
+  BankMemo: undefined }
 
 
 ## Wallet Demo
