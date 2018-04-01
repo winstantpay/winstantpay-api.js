@@ -326,23 +326,23 @@ the section **Endpoints** provide an overview over the  inputs (the args JSON ob
 
 ## Endpoints
 
-- [CurrencyListGetPaymentCurrencies](#currencyListgetpaymentcurrencies)
-- [CustomerAccountBalancesGet](#customerAccountbalancesget)
-- [CustomerAccountStatementGetSingle](#CustomerAccountStatementGetSingle)
-- [CustomerUserSearch](#CustomerUserSearch)
-- [FXDealQuoteBook](#FXDealQuoteBook)
-- [FXDealQuoteBookAndInstantDeposit](#FXDealQuoteBookAndInstantDeposit)
-- [FXDealQuoteCreate](#FXDealQuoteCreate)
-- [GetCustomerAccountAliasList](#GetCustomerAccountAliasList)
-- [GetCustomerAccountBalances](#GetCustomerAccountBalances)
-- [GetLibraryVersion](#GetLibraryVersion)
-- [InstantPaymentCreate](#InstantPaymentCreate)
-- [InstantPaymentGetSingle](#InstantPaymentGetSingle)
-- [InstantPaymentPost](#InstantPaymentPost)
-- [InstantPaymentSearch](#InstantPaymentSearch)
-- [UserPasswordChange](#UserPasswordChange)
-- [UserPasswordReset](#UserPasswordReset)
-- [UserSettingsGetSingle](#UserSettingsGetSingle)
+- [CurrencyListGetPaymentCurrencies](#currencylistgetpaymentcurrencies)
+- [CustomerAccountBalancesGet](#customeraccountbalancesget)
+- [CustomerAccountStatementGetSingle](#customeraccountstatementgetsingle)
+- [CustomerUserSearch](#customerusersearch)
+- [FXDealQuoteBook](#fxdealquotebook)
+- [FXDealQuoteBookAndInstantDeposit](#fxdealquotebookandinstantdeposit)
+- [FXDealQuoteCreate](#fxdealquotecreate)
+- [GetCustomerAccountAliasList](#getcustomeraccountaliaslist)
+- [GetCustomerAccountBalances](#getcustomeraccountbalances)
+- [GetLibraryVersion](#getlibraryversion)
+- [InstantPaymentCreate](#instantpaymentcreate)
+- [InstantPaymentGetSingle](#instantpaymentgetsingle)
+- [InstantPaymentPost](#instantpaymentpost)
+- [InstantPaymentSearch](#instantpaymentsearch)
+- [UserPasswordChange](#userpasswordchange)
+- [UserPasswordReset](#userpasswordreset)
+- [UserSettingsGetSingle](#usersettingsgetsingle)
 
 ### CurrencyListGetPaymentCurrencies
 #### Call
@@ -488,6 +488,54 @@ The Object:
        BalanceAvailableBase: 154291.5 } ] }
 ```
 ### CustomerAccountStatementGetSingle
+#### Call
+```javascript
+let args = {
+    request: {
+        ServiceCallerIdentity: {
+            LoginId: userLogin,
+            Password: userPassword,
+            ServiceCallerId: callerId 
+        },
+        AccountId: accountId, // If you do not know them, you can find them in the response to CustomerAccountBalancesGet
+        StartDate: "2018-01-01", // Date format is YYYY-MM-DD
+        EndDate: "2018-12-01" // Date format is YYYY-MM-DD        
+    }
+};
+```
+Method: 
+```javascript
+var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['CustomerAccountStatementGetSingle'];
+```
+#### Response
+The Path:
+```javascript
+                var transactions = gpWebResult.CustomerAccountStatementGetSingleResult.Entries;
+```
+> This is the main response object, even though there is more...
+The Object:
+```javascript
+ [   { EntryTypeName: 'Payment',
+       ItemTypeId: 10,
+       ItemTypeName: 'Deposit',
+       ItemId: 'an ID',
+       ItemReference: 'DEPO1001055',
+       AmountCredit: 500000,
+       AmountDebit: 0,
+       ValueDate: 2018-03-15T00:00:00.000Z,
+       BankMemo: 'TEST Examples' },
+     { EntryTypeName: 'Settlement',
+       ItemTypeId: 10,
+       ItemTypeName: 'Deposit',
+       ItemId: 'an ID',
+       ItemReference: 'DEPO1001084 / SPOT1009654',
+       AmountCredit: 0,
+       AmountDebit: 1000,
+       ValueDate: 2018-03-26T00:00:00.000Z,
+       BankMemo: 'ACCOUNT INSTANT TRANSFER' } 
+]
+```
+
 ### CustomerUserSearch
 ### FXDealQuoteBook
 ### FXDealQuoteBookAndInstantDeposit
