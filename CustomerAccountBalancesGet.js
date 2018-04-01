@@ -20,11 +20,6 @@ var userPassword = "myPasswordAsInKyc";
  */
 var callerId = "00000000-0000-0000-0000-000000000000";
 
-userLogin = "Ralf4IOU";
-userPassword = "Letmein123"
-callerId = "773B3EBA-D4FC-4853-A32F-06FD23A5C902";
-
-
 /**
  * [url the path tothe WSDL file of the API]
  * @type {String}
@@ -138,9 +133,7 @@ function CustomerAccountBalancesGet(client,customerId) {
                 resolve(balances);
             }
         });
-
-    })
-
+    });
 } // end of CustomerAccountBalancesGet
 
 /**
