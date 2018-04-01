@@ -631,7 +631,7 @@ The Path:
 var librayVersion = gpWebResult.GetLibraryVersionResult;
 ```
 The Object:
-```javascript
+```json
 4.5.7.15
 ```
 >Just use this example to see if your SOAP client is working allright
