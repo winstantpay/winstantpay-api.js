@@ -634,8 +634,47 @@ The Object:
 ```javascript
 4.5.7.15
 ```
+>Just use this example to see if your SOAP client is working allright
 
 ### InstantPaymentCreate
+#### Call
+```javascript
+let args = {
+    let args = {
+        request: {
+            ServiceCallerIdentity: {
+                LoginId: userLogin,
+                Password: userPassword,
+                ServiceCallerId: callerId // iou_caller_id / bank id
+            },
+            FromCustomer: fromWallet, // that is an alias - check the wallet demmo for more information
+            ToCustomer: toWallet, // that is an a;ias
+            Amount: amount,
+            CurrencyCode: currency,
+            ValueDate: "",
+            ReasonForPayment:"",
+            ExternalReference: "",
+            Memo:""
+        }
+    };
+};
+```
+Method: 
+```javascript
+var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['InstantPaymentCreate'];
+```
+#### Response
+The Path:
+```javascript
+var gpWebResult = result.InstantPaymentCreateResult.PaymentInformation;
+```
+The Object:
+```javascript
+{ PaymentId: 'an ID',
+  PaymentReference: 'INST1000857' }
+```
+>The payment references above will be different in your case
+>The ID above will be used in the payment related calls following
 
 ### InstantPaymentGetSingle
 
