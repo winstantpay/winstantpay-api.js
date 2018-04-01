@@ -329,19 +329,13 @@ the section **Endpoints** provide an overview over the  inputs (the args JSON ob
 - [CurrencyListGetPaymentCurrencies](#currencylistgetpaymentcurrencies)
 - [CustomerAccountBalancesGet](#customeraccountbalancesget)
 - [CustomerAccountStatementGetSingle](#customeraccountstatementgetsingle)
-- [CustomerUserSearch](#customerusersearch)
-- [FXDealQuoteBook](#fxdealquotebook)
 - [FXDealQuoteBookAndInstantDeposit](#fxdealquotebookandinstantdeposit)
 - [FXDealQuoteCreate](#fxdealquotecreate)
-- [GetCustomerAccountAliasList](#getcustomeraccountaliaslist)
 - [GetCustomerAccountBalances](#getcustomeraccountbalances)
 - [GetLibraryVersion](#getlibraryversion)
 - [InstantPaymentCreate](#instantpaymentcreate)
 - [InstantPaymentGetSingle](#instantpaymentgetsingle)
 - [InstantPaymentPost](#instantpaymentpost)
-- [InstantPaymentSearch](#instantpaymentsearch)
-- [UserPasswordChange](#userpasswordchange)
-- [UserPasswordReset](#userpasswordreset)
 - [UserSettingsGetSingle](#usersettingsgetsingle)
 
 ### CurrencyListGetPaymentCurrencies
@@ -510,7 +504,7 @@ var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['Custome
 #### Response
 The Path:
 ```javascript
-                var transactions = gpWebResult.CustomerAccountStatementGetSingleResult.Entries;
+var transactions = gpWebResult.CustomerAccountStatementGetSingleResult.Entries;
 ```
 > This is the main response object, even though there is more...
 The Object:
@@ -536,19 +530,70 @@ The Object:
 ]
 ```
 
-### CustomerUserSearch
-### FXDealQuoteBook
 ### FXDealQuoteBookAndInstantDeposit
+>The endpoints are listed alphabetically. IRL you would create a quote from a FX deal first
+
 ### FXDealQuoteCreate
-### GetCustomerAccountAliasList
+#### Call
+```javascript
+let args = {
+    request: {
+        ServiceCallerIdentity: {
+            LoginId: userLogin,
+            Password: userPassword,
+            ServiceCallerId: callerId 
+        },
+        CustomerId: customerId, // You know where to get this
+        BuyCCY: "MMK",
+        SellCCY: "THB",
+        Amount: "1000.00",
+        AmountCCY: "THB",
+        DealType: "Spot",
+        IsForCurrencyCalculator: false
+    }
+};
+```
+Method: 
+```javascript
+var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['FXDealQuoteCreate'];
+```
+#### Response
+The Path:
+```javascript
+var gpWebResult = result.FXDealQuoteCreateResult.Quote;
+```
+The Object:
+```javascript
+{ QuoteId: 'an ID',
+  QuoteReference: 'QUOT1234203',
+  QuoteSequenceNumber: '1234203',
+  CustomerAccountNumber: '0123455667',
+  DealType: 'SPOT',
+  BuyAmount: '42071.00 MMK',
+  BuyCurrencyCode: 'MMK',
+  SellAmount: '1000.00 THB',
+  SellCurrencyCode: 'THB',
+  Rate: '42.071',
+  RateFormat: 'THB / MMK',
+  DealDate: '4/2/2018 12:00:00 AM',
+  ValueDate: '4/4/2018 12:00:00 AM',
+  QuoteTime: 2018-04-01T15:11:26.130Z,
+  ExpirationTime: 2018-04-01T15:11:56.130Z,
+  IsForCurrencyCalculator: false }
+```
+
 ### GetCustomerAccountBalances
+This is identical to the [CustomerAccountBalancesGet](#customeraccountbalancesget) endpoint and is listed for historical reasons only.
+
 ### GetLibraryVersion
+
 ### InstantPaymentCreate
+
 ### InstantPaymentGetSingle
+
 ### InstantPaymentPost
-### InstantPaymentSearch
-### UserPasswordChange
-### UserPasswordReset
+
+
 ### UserSettingsGetSingle
 
 This service returns all the settings, The user id will be required in other services.
