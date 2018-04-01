@@ -27,6 +27,10 @@ var callerId = "00000000-0000-0000-0000-000000000000";
  */
 var url = './WSDL/WinstantPayWebService.xml';
 
+userLogin = "Ralf4IOU";
+userPassword = "Letmein123"
+callerId = "773B3EBA-D4FC-4853-A32F-06FD23A5C902";
+
 /**
  * [options this object can be used to further configure the soap client]
  *          see https://github.com/strongloop/strong-soap for details on the options
@@ -50,25 +54,25 @@ var errHandler = function(err) {
 }
 
 /**
- * userSettingsGetSingle - the functions calls the UserSettingsGetSingle endPoint of the GPWeb Webservice API
+ * CurrencyListGetPaymentCurrencies - the functions calls the UserSettingsGetSingle endPoint of the GPWeb Webservice API
  *      
  * @param  {soapClient} client - The soapClient 
- * @return {String} userId - Since this functionm returns really a promise - userId is resolved if success else an error message is returned
+ * @return {JSON} CurrencyListGetPaymentCurrenciesResponse
  */
-function userSettingsGetSingle(client) {
+function CurrencyListGetPaymentCurrencies(client) {
     /**
      * [args Contain the arguments for the soap module call]
      * @type {Object}
      */
-    let args = {
-        request: {
-            ServiceCallerIdentity: {
-                LoginId: userLogin,
-                Password: userPassword,
-                ServiceCallerId: callerId 
-            },
-        }
-    };
+let args = {
+    request: {
+        ServiceCallerIdentity: {
+            LoginId: userLogin,
+            Password: userPassword,
+            ServiceCallerId: callerId 
+        },
+    }
+};
     /**
      * @param  {Function} - resolve is call when the function succeeds 
      * @param  {Function} - reject is called when the method called technically fails - 
@@ -78,29 +82,24 @@ function userSettingsGetSingle(client) {
      */
     return new Promise(function(resolve, reject) {
         
-        var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['UserSettingsGetSingle'];
+        var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['CurrencyListGetPaymentCurrencies'];
 
         method(args, function(err, result, envelope, soapHeader) {
             if (err) {
                 reject(err);
             } else {
                 console.log('\nResult: \n');
-                console.log(util.inspect(result, {
-                    showHidden: false,
-                    depth: null
-                }))
 
                 // var gpWebResult = JSON.parse(result);
                 var gpWebResult = result;
-                var userId = gpWebResult.UserSettingsGetSingleResult.UserSettings.UserId;
-                console.log("User Id is ", userId);
-                resolve(userId);
+                var currencies = gpWebResult.CurrencyListGetPaymentCurrenciesResult.Currencies;
+                resolve(currencies);
             }
         });
 
     })
 
-} // end of userSettingsGetSingle
+} // end of CurrencyListGetPaymentCurrencies
 
 
 /**
@@ -120,10 +119,12 @@ soap.createClient(url, options, function(err, client) {
 
     client.setSecurity(wsSecurity);
 
-    var initializePromise = userSettingsGetSingle(client);
+    var initializePromise = CurrencyListGetPaymentCurrencies(client);
     initializePromise.then(function(result) {
-        userId = result;
-        console.log("UserSettingsGetSingle user. Id is: " + userId);
+        console.log(util.inspect(result, {
+            showHidden: false,
+            depth: null
+        }))
     }, errHandler);
 
 });

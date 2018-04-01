@@ -40,7 +40,7 @@ After you have all you credentials please follow the following steps (explained 
 
 ## Basic Flow of the API
 
-###Security
+### Security
 Even though security credentials are provided through the WSsecurityCall
 ```javascript
 var wsSecurity = new soap.WSSecurity(userLogin, userPassword, options);
@@ -54,7 +54,7 @@ ServiceCallerIdentity: {
     ServiceCallerId: callerId 
 },
 ```
-###Flow
+### Flow
 
 WinstantPay follows in the core the dual controll principle where one user prepares a transaction and a second user (usually a supervisor) approves or books the transaction.
 e.g.  
@@ -327,12 +327,80 @@ the section **Endpoints** provide an overview over the  inputs (the args JSON ob
 ## Endpoints
 
 ### CurrencyListGetPaymentCurrencies
+#### Call
+```javascript
+let args = {
+    request: {
+        ServiceCallerIdentity: {
+            LoginId: userLogin,
+            Password: userPassword,
+            ServiceCallerId: callerId 
+        },
+    }
+};
+```
+Method: 
+```javascript
+var method = client['GPWebService']['BasicHttpsBinding_IGPWebService1']['CurrencyListGetPaymentCurrencies'];
+```
+#### Response
+The Path:
+```javascript
+var currencies = gpWebResult.CurrencyListGetPaymentCurrenciesResult.Currencies;
+```
+The Object:
+```javascript
+{ CurrencyData: 
+   [ { CurrencyId: 76,
+       CurrencyCode: 'KHR',
+       CurrencyName: 'Cambodian Riels',
+       CurrencyAmountScale: 2,
+       CurrencyRateScale: 5,
+       Symbol: '៛',
+       PaymentCutoffTime: '16:00',
+       SettlementDaysToAdd: 0 },
+     { CurrencyId: 83,
+       CurrencyCode: 'LAK',
+       CurrencyName: 'Lao Kips',
+       CurrencyAmountScale: 2,
+       CurrencyRateScale: 5,
+       Symbol: '₭',
+       PaymentCutoffTime: '16:00',
+       SettlementDaysToAdd: 0 },
+     { CurrencyId: 95,
+       CurrencyCode: 'MMK',
+       CurrencyName: 'Myanmar (Burma) Kyats',
+       CurrencyAmountScale: 2,
+       CurrencyRateScale: 4,
+       Symbol: 'MMK',
+       PaymentCutoffTime: '16:00',
+       SettlementDaysToAdd: 0 },
+     { CurrencyId: 141,
+       CurrencyCode: 'THB',
+       CurrencyName: 'Thai Baht',
+       CurrencyAmountScale: 2,
+       CurrencyRateScale: 3,
+       Symbol: '฿',
+       PaymentCutoffTime: '16:00',
+       SettlementDaysToAdd: 0 },
+     { CurrencyId: 153,
+       CurrencyCode: 'USD',
+       CurrencyName: 'US Dollars',
+       CurrencyAmountScale: 2,
+       CurrencyRateScale: 4,
+       Symbol: '$',
+       PaymentCutoffTime: '23:00',
+       SettlementDaysToAdd: 2 } ] }
 
+```
 ### CustomerAccountBalancesGet
 
 ### CustomerAccountStatementGetSingle
+
 ### CustomerUserSearch
+
 ### FXDealQuoteBook
+
 ### FXDealQuoteBookAndInstantDeposit
 ### FXDealQuoteCreate
 ### GetCustomerAccountAliasList
@@ -348,7 +416,7 @@ the section **Endpoints** provide an overview over the  inputs (the args JSON ob
 
 This service returns all the settings, The user id will be required in other services.
 
-####Call
+#### Call
 let args = {
     request: {
         ServiceCallerIdentity: {
@@ -359,7 +427,7 @@ let args = {
     }
 };
 #### Response Object
-```json
+```javascript
 { UserSettingsGetSingleResult: 
    { ServiceResponse: 
       { HasErrors: false,
