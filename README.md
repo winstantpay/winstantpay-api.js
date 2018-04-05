@@ -30,7 +30,7 @@ npm start
 >We call this key a caller-id.
 >
 >To get the caller id, you need to complete your KYC (Know Your Client), which will result in >you have a user ID and password with WinstantPay. 
->To complete the basic KYC, you need a working email and telephone number.
+>To complete the basic KYC, you need a working email and telephone number and head over to [WORLD-KYC](https://winstantpay.worldkyc.com/)
 
 >Once done, send us an email to <api@winstantpay.com> from the registered email and we ?will get in touch prompty (usually via SMS to your phone 24hours).
 >
