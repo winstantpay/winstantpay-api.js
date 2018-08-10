@@ -1,7 +1,6 @@
 # winstantpay-api.js ![npm](https://img.shields.io/npm/v/npm.svg) ![node](https://img.shields.io/node/v/@stdlib/stdlib/latest.svg)
 
-
-![The WinstantPay Logo](http://www.winstantpay.com/assets/img/logo-winstantpay-L-notag-trans.png "The WinstantPay Logo")
+![The WinstantPay Logo](https://www.winstantpay.com/imgs/logo-78.png "The WinstantPay Logo")
 
 These are the JavaScript examples for using the WinstantPay webservice API
 

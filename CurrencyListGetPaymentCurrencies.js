@@ -60,15 +60,15 @@ function CurrencyListGetPaymentCurrencies(client) {
      * [args Contain the arguments for the soap module call]
      * @type {Object}
      */
-let args = {
-    request: {
-        ServiceCallerIdentity: {
-            LoginId: userLogin,
-            Password: userPassword,
-            ServiceCallerId: callerId 
-        },
-    }
-};
+    let args = {
+        request: {
+            ServiceCallerIdentity: {
+                LoginId: userLogin,
+                Password: userPassword,
+                ServiceCallerId: callerId 
+            },
+        }
+    };
     /**
      * @param  {Function} - resolve is call when the function succeeds 
      * @param  {Function} - reject is called when the method called technically fails - 
